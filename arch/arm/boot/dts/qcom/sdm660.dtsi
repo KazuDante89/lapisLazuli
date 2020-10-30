@@ -55,6 +55,8 @@
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
 			qcom,ea = <&ea0>;
 			efficiency = <1024>;
+      capacity-dmips-mhz = <1024>;
+			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
 			next-level-cache = <&L2_0>;
 			L2_0: l2-cache {
 				compatible = "arm,arch-cache";
@@ -84,6 +86,8 @@
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
 			qcom,ea = <&ea1>;
 			efficiency = <1024>;
+      capacity-dmips-mhz = <1024>;
+			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
 			next-level-cache = <&L2_0>;
 			L1_I_1: l1-icache {
 				compatible = "arm,arch-cache";
@@ -107,6 +111,8 @@
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
 			qcom,ea = <&ea2>;
 			efficiency = <1024>;
+      capacity-dmips-mhz = <1024>;
+			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
 			next-level-cache = <&L2_0>;
 			L1_I_2: l1-icache {
 				compatible = "arm,arch-cache";
@@ -130,6 +136,8 @@
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
 			qcom,ea = <&ea3>;
 			efficiency = <1024>;
+      capacity-dmips-mhz = <1024>;
+			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
 			next-level-cache = <&L2_0>;
 			L1_I_3: l1-icache {
 				compatible = "arm,arch-cache";
@@ -153,6 +161,8 @@
 			qcom,lmh-dcvs = <&lmh_dcvs1>;
 			qcom,ea = <&ea4>;
 			efficiency = <1638>;
+      capacity-dmips-mhz = <1638>;
+			sched-energy-costs = <&CPU_COST_1 &CLUSTER_COST_1>;
 			next-level-cache = <&L2_1>;
 			L2_1: l2-cache {
 				compatible = "arm,arch-cache";
@@ -180,6 +190,8 @@
 			qcom,lmh-dcvs = <&lmh_dcvs1>;
 			qcom,ea = <&ea5>;
 			efficiency = <1638>;
+      capacity-dmips-mhz = <1638>;
+			sched-energy-costs = <&CPU_COST_1 &CLUSTER_COST_1>;
 			next-level-cache = <&L2_1>;
 			L1_I_101: l1-icache {
 				compatible = "arm,arch-cache";
@@ -203,6 +215,8 @@
 			qcom,lmh-dcvs = <&lmh_dcvs1>;
 			qcom,ea = <&ea6>;
 			efficiency = <1638>;
+      capacity-dmips-mhz = <1638>;
+			sched-energy-costs = <&CPU_COST_1 &CLUSTER_COST_1>;
 			next-level-cache = <&L2_1>;
 			L1_I_102: l1-icache {
 				compatible = "arm,arch-cache";
@@ -226,6 +240,8 @@
 			qcom,lmh-dcvs = <&lmh_dcvs1>;
 			qcom,ea = <&ea7>;
 			efficiency = <1638>;
+      capacity-dmips-mhz = <1638>;
+			sched-energy-costs = <&CPU_COST_1 &CLUSTER_COST_1>;
 			next-level-cache = <&L2_1>;
 			L1_I_103: l1-icache {
 				compatible = "arm,arch-cache";
@@ -276,6 +292,55 @@
 					cpu = <&CPU7>;
 				};
 			};
+		};
+	};
+  energy_costs: energy-costs {
+		compatible = "sched-energy";
+
+		CPU_COST_0: core-cost0 {
+			busy-cost-data = <
+				1401600	323
+				1747200	608
+				1843200	667
+			>;
+			idle-cost-data = <
+				20 16 10 8
+			>;
+		};
+
+		CPU_COST_1: core-cost1 {
+			busy-cost-data = <
+				1401600	861
+				1747200	1016
+				2150400	918
+				2208000	795
+			>;
+			idle-cost-data = <
+				100 80 60 40
+			>;
+		};
+
+		CLUSTER_COST_0: cluster-cost0 {
+			busy-cost-data = <
+				1401600	9
+				1747200	11
+				1843200	13
+			>;
+			idle-cost-data = <
+				4 3 2 1
+			>;
+		};
+
+		CLUSTER_COST_1: cluster-cost1 {
+			busy-cost-data = <
+				1401600	17
+				1747200	25
+				2150400	37
+				2208000	44
+			>;
+			idle-cost-data = <
+				4 3 2 1
+			>;
 		};
 	};
 
@@ -1236,23 +1301,19 @@
 		qcom,core-dev-table =
 			< 1113600 762 >,
 			< 1401600 3879 >,
-			< 2150400 5931 >,
-			< 2457600 6881 >;
+			< 2150400 5931 >;
 	};
 
 	devfreq_cpufreq: devfreq-cpufreq {
 		mincpubw-cpufreq {
 			target-dev = <&mincpubw>;
 			cpu-to-dev-map-0 =
-				< 633600 762 >,
 				< 1401600 1571 >,
 				< 1881600 2929 >;
 			cpu-to-dev-map-4 =
-				< 1113600 762 >,
 				< 1401600 2086 >,
 				< 1747200 2929 >,
-				< 2150400 3879 >,
-				< 2457600 6881 >;
+				< 2150400 3879 >;
 		};
 	};
 
@@ -1390,24 +1451,15 @@
 		qcom,governor-per-policy;
 
 		qcom,cpufreq-table-0 =
-			<  633600 >,
-			<  902400 >,
-			< 1113600 >,
 			< 1401600 >,
-			< 1536000 >,
-			< 1612800 >,
 			< 1747200 >,
 			< 1843200 >;
 
 		qcom,cpufreq-table-4 =
-			< 1113600 >,
 			< 1401600 >,
 			< 1747200 >,
-			< 1804800 >,
-			< 1958400 >,
 			< 2150400 >,
-			< 2208000 >,
-			< 2457600 >;
+			< 2208000 >;
 	};
 
 	sdhc_1: sdhci@c0c4000 {
